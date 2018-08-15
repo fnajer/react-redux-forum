@@ -2,10 +2,9 @@ import { createStore } from 'redux';
 
 const reducer = (state, action) => {
   if (action.type === 'new_action') {
-    return [{
-      text: 'hello',
-      id: 1,
-    }];
+    return {
+      channels: [action.channels]
+    };
   }
   return state;
 }
@@ -19,7 +18,12 @@ const store = createStore(
   initialState,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
+
 store.dispatch({
-  type: 'new_action'
+  type: 'new_action',
+  channels: {
+    id: 1,
+    name: 'tete',
+  }
 });
 export default store;
