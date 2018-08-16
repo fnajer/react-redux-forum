@@ -9,7 +9,7 @@ const getThreads = () => async (dispatch, getState) => {
 
   dispatch({
     type: GET_THREADS,
-    payload: responce.data,
+    payload: responce.data.data,
   });
 }
 

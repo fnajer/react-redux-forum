@@ -15,7 +15,7 @@ class ChannelsContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  channels: state.channels
+  channels: state.channels,
 });
 
 const mapDispatchToProps = dispatch => ({
