@@ -6,12 +6,7 @@ import { GET_CHANNELS } from './actions/channels';
 const reducer = (state, action) => {
   if (action.type === GET_CHANNELS) {
     return {
-      channels: [
-        {
-          id: 1,
-          name: 'tete',
-        }
-      ]
+      channels: action.payload
     };
   }
   return state;
