@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import getChannels from '../../store/actions/channels';
+
 import ChannelsList from './ChannelsList';
 
 class ChannelsContainer extends React.Component {

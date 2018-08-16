@@ -1,9 +1,11 @@
 import axios from 'axios';
 
+import config from '../../config';
+
 export const GET_CHANNELS = 'GET_CHANNELS';
 
 const getChannels = () => async (dispatch, getState) => {
-  const responce = await axios.get('https://v-forum-api.bahdcasts.com/api/channels');
+  const responce = await axios.get(`${config.apiUrl}/channels`);
 
   dispatch({
     type: GET_CHANNELS,
