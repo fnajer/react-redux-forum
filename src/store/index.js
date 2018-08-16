@@ -1,9 +1,16 @@
 import { createStore } from 'redux';
 
+import { GET_CHANNELS } from './actions/channels';
+
 const reducer = (state, action) => {
-  if (action.type === 'new_action') {
+  if (action.type === GET_CHANNELS) {
     return {
-      channels: [action.channels]
+      channels: [
+        {
+          id: 1,
+          name: 'tete',
+        }
+      ]
     };
   }
   return state;
@@ -19,11 +26,4 @@ const store = createStore(
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
-store.dispatch({
-  type: 'new_action',
-  channels: {
-    id: 1,
-    name: 'tete',
-  }
-});
 export default store;
