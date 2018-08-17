@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 import config from '../../config';
-import Axios from 'axios';
 
 export const GET_THREADS = 'GET_THREADS';
 export const GET_THREADS_LOADING = 'GET_THREADS_LOADING';
@@ -33,7 +32,7 @@ export const getThread = (id) => async (dispatch, getState) => {
     type: GET_THREAD_LOADING,
   });
 
-  const responce = await Axios.get(`${config.apiUrl}/threads/show/${id}`);
+  const responce = await axios.get(`${config.apiUrl}/threads/show/${id}`);
 
   dispatch({
     type: GET_THREAD,
