@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import loadingGif from '../../loading.gif';
 import getChannels from '../../store/actions/channels';
 
 import ChannelsList from './ChannelsList';
+import Loader from '../../components/Loader';
 
 class ChannelsContainer extends React.Component {
   componentWillMount() {
@@ -19,9 +19,7 @@ class ChannelsContainer extends React.Component {
         }
         {
           this.props.loading &&
-          <div className="text-center">
-            <img src={loadingGif} width="40px" height="40px" alt=""/>
-          </div>
+          <Loader />
         }
       </div>
     );

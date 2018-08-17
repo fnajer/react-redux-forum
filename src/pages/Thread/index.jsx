@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import { getThread } from '../../store/actions/threads';
+
 import SingleThread from './SingleThread';
+import Loader from '../../components/Loader';
 
 class ThreadContainer extends React.Component {
   componentWillMount() {
@@ -10,11 +12,31 @@ class ThreadContainer extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     return (
-      <SingleThread />
+      <Fragment>
+        {
+          !this.props.loading &&
+          <SingleThread 
+            thread={this.props.thread}
+          />
+        }
+        {
+          this.props.loading &&
+          <Loader 
+            width="80px"
+            height="80px"
+          />
+        }
+      </Fragment>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  thread: state.thread.data,
+  loading: state.thread.loading,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   getThread: (id) => {
@@ -22,4 +44,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export default connect(null, mapDispatchToProps)(ThreadContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ThreadContainer);
