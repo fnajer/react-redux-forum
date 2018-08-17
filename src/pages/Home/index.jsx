@@ -35,7 +35,7 @@ class HomeContainer extends Component {
         {
           this.props.loading &&
           <div className="text-center">
-            <img src={loadingGif} alt="" className="img" />
+            <img src={loadingGif} width="80px" height="80px" alt="" className="img" />
           </div>
         }
       </div>
@@ -44,7 +44,7 @@ class HomeContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  threadsData: state.threads,
+  threadsData: state.threads.threadsData,
   loading: state.threads.loading,
 });
 

@@ -1,9 +1,12 @@
 import { GET_THREADS, GET_THREADS_LOADING, GET_THREADS_LOADED } from '../actions/threads';
 
-const threadsReducer = (state = { data: [] }, action) => {
+const threadsReducer = (state = { threadsData: { data: [] } }, action) => {
   switch (action.type) {
     case GET_THREADS: 
-      return action.payload;
+      return {
+        ...state,
+        threadsData: action.payload,
+      };
     case GET_THREADS_LOADING:
       return {
         ...state,
