@@ -14,14 +14,26 @@ class ThreadContainer extends React.Component {
     this.props.getReplies(id);
   }
 
+  getPageCount = (total, perPage) => {
+    return Math.ceil(total / perPage);
+  }
+
+  handlePageChange = (page) => {
+    const { id } = this.props.match.params;
+    this.props.getReplies(id, page.selected + 1);
+  }
+
   render() {
-    console.log(this.props);
     return (
       <Fragment>
         {
           !this.props.loading &&
           <SingleThread 
             thread={this.props.thread}
+            replies={this.props.replies}
+            handlePageChange={this.handlePageChange}
+            getPageCount={this.getPageCount}
+            loadingReplies={this.props.loadingReplies}
           />
         }
         {
@@ -47,8 +59,8 @@ const mapDispatchToProps = (dispatch) => ({
   getThread: (id) => {
     dispatch(getThread(id));
   },
-  getReplies: (id) => {
-    dispatch(getReplies(id));
+  getReplies: (id, page) => {
+    dispatch(getReplies(id, page));
   }
 });
 
