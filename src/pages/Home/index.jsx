@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import loadingGif from '../../loading.gif'
-import getThreads from '../../store/actions/threads';
+import { getThreads } from '../../store/actions/threads';
 
 import HomeThreads from './HomeThreads';
 
