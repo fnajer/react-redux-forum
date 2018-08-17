@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
 
 import channelsReducer from './channels';
 import threadsReducer from './threads';
@@ -8,6 +9,7 @@ const reducer = combineReducers({
   channels: channelsReducer,
   threads: threadsReducer,
   thread: threadReducer,
+  form: formReducer,
 });
 
 export default reducer;
