@@ -6,7 +6,12 @@ export const LOGIN_USER = 'LOGIN_USER';
 
 export const loginUser = (values) => async (dispatch, getState) => {
   try {
-    const responce = await axios.post(`${config.apiUrl}/login`, values);
+    const responce = await axios.post(`${config.apiUrl}/login`, {
+      email: values.email,
+      password: values.password,
+    });
+
+    localStorage.setItem('user', JSON.stringify(responce.data.data));
 
     dispatch({
       type: LOGIN_USER,

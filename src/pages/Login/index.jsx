@@ -10,6 +10,12 @@ class LoginContainer extends Component {
     await this.props.loginUser(values);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.user) {
+      this.props.history.push('/');
+    }
+  }
+
   render() {
     return (
       <LoginForm onSubmit={this.handleSubmit} />
@@ -17,10 +23,14 @@ class LoginContainer extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  user: state.auth.user
+});
+
 const mapDispatchToProps = (dispatch) => ({
   loginUser: (values) => {
     return dispatch(loginUser(values));
   }
 });
 
-export default connect(null, mapDispatchToProps)(LoginContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);
