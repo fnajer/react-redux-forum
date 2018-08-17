@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import ReactPaginate from 'react-paginate';
 
-const HomeThreads = ({ threads, pageCount, handlePageChange }) => (
+const HomeThreads = ({ threads, pageCount, handlePageChange, currentPage }) => (
   <Fragment>
     {
       threads.map(thread => (
@@ -38,6 +38,7 @@ const HomeThreads = ({ threads, pageCount, handlePageChange }) => (
         breakClassName="page-link"
         pageCount={pageCount}
         onPageChange={handlePageChange}
+        forcePage={currentPage}
       />
     </div>
   </Fragment>
