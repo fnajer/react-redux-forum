@@ -1,21 +1,9 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { reduxForm, Field } from 'redux-form';
-import isEmail from 'validator/lib/isEmail';
 
-const RenderField = ({
-  type, input, meta: { touched, error }
-}) => ((
-  <Fragment>
-    <input type={type} {...input} className={error && touched ? 'form-control is-invalid' : 'form-control'} />
-    {
-      touched && error && error.map((e, index) => (
-        <span key={index} className="invalid-feedback">
-          <strong>{e}</strong>
-        </span>
-      ))
-    }
-  </Fragment>
-));
+import RenderField from './RenderField';
+import validateRegistrationForm from './helpers';
+import Loader from '../../../components/Loader';
 
 const RegisterForm = ({ handleSubmit, submitting, valid }) => (
   <div className="card">
@@ -50,7 +38,7 @@ const RegisterForm = ({ handleSubmit, submitting, valid }) => (
           <div className="col-md-8 offset-md-4">
             <button type="submit" className="btn btn-primary"
               disabled={!valid || submitting} >
-              Register
+              {submitting ? <Loader /> : 'Register'}
             </button>
           </div>
         </div>
@@ -58,36 +46,6 @@ const RegisterForm = ({ handleSubmit, submitting, valid }) => (
     </div>
   </div>
 );
-
-const validateRegistrationForm = (values) => {
-  let errors = {};
-
-  if (!values.email) {
-    errors.email = ['Email is required.'];
-  } else {
-    if (!isEmail(values.email)) {
-      errors.email = ['Email is invalid.'];
-    }
-  }
-
-  if (!values.name) {
-    errors.name = ['Name is required.'];
-  } else {
-    if (values.name.length > 15) {
-      errors.name = ['Name should length no longer 15.'];
-    }
-  }
-
-  if (!values.password) {
-    errors.password = ['Password is required.'];
-  } else {
-    if (values.password !== values.password_confirmation) {
-      errors.password = ['Password invalid confirm.'];
-    }
-  }
-
-  return errors;
-}
 
 export default reduxForm({
   form: 'register-form',

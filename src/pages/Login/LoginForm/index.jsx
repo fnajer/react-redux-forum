@@ -1,6 +1,8 @@
 import React from 'react';
 import { reduxForm, Field } from 'redux-form';
 
+import Loader from '../../../components/Loader';
+
 const LoginForm = ({ pristine, handleSubmit, submitting, error }) => (
   <div className="card">
     <div className="card-header">Login</div>
@@ -25,7 +27,7 @@ const LoginForm = ({ pristine, handleSubmit, submitting, error }) => (
               <p className="text-danger font-weight-bold mb-2">{error}</p>
             }
             <button disabled={pristine || submitting} type="submit" className="btn btn-primary">
-              Login
+              {submitting ? <Loader /> : 'Login'}
             </button>
           </div>
         </div>
