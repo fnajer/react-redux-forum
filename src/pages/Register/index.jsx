@@ -13,6 +13,12 @@ class RegisterContainer extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.user) {
+      this.props.history.push('/');
+    }
+  }
+
   handleSubmit = async (values) => {
     await this.props.registerUser(values);
   }
