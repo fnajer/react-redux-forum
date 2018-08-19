@@ -35,7 +35,7 @@ export const logoutUser = () => (dispatch) => {
 
 export const registerUser = (values) => async (dispatch) => {
   try {
-    const responce = await axios.post(`${config.apiUrl}/register`, {
+    const response = await axios.post(`${config.apiUrl}/register`, {
       name: values.name,
       email: values.email,
       password: values.password,
@@ -43,11 +43,13 @@ export const registerUser = (values) => async (dispatch) => {
 
     dispatch({
       type: LOGIN_USER,
-      payload: responce.data.data,
+      payload: response.data.data,
     });
-  } catch (errors) {
+  } catch (errors) { // then responce, then response. Mda.
+    console.log(errors.response);
     throw new SubmissionError({
-      _error: 'Something went wrong.',
+      ...errors.response.data.data,
+      _error: 'Something went wrong. Please, check for validation errors.',
     });
   }
 }

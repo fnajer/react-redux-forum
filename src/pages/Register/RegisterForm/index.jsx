@@ -1,37 +1,48 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { reduxForm, Field } from 'redux-form';
 
-const RegisterForm = ({ handleSubmit, error }) => (
+const RenderField = ({
+  type, input, meta: { touched, error }
+}) => ((
+  <Fragment>
+    <input type={type} {...input} className={error && touched ? 'form-control is-invalid' : 'form-control'} />
+    {
+      touched && error && error.map((e, index) => (
+        <span key={index} className="invalid-feedback">
+          <strong>{e}</strong>
+        </span>
+      ))
+    }
+  </Fragment>
+));
+
+const RegisterForm = ({ handleSubmit }) => (
   <div className="card">
     <div className="card-header">Register</div>
     <div className="card-body">
       <form onSubmit={handleSubmit}>
-        <p className="text-danger">{error}</p>
         <div className="form-group row">
           <label htmlFor="name" className="col-sm-4 col-form-label text-md-right">Name</label>
           <div className="col-md-6">
-            <Field component="input" id="name" type="text" className="form-control is-invalid" name="name" required autoFocus />
-            <span className="invalid-feedback">
-              <strong>The name is required.</strong>
-            </span>
+            <Field component={RenderField} id="name" type="text" name="name" required autoFocus />
           </div>
         </div>
         <div className="form-group row">
           <label htmlFor="email" className="col-sm-4 col-form-label text-md-right">E-Mail Address</label>
           <div className="col-md-6">
-            <Field component="input" id="email" type="email" className="form-control" name="email" required />
+            <Field component={RenderField} id="email" type="email" name="email" required />
           </div>
         </div>
         <div className="form-group row">
           <label htmlFor="password" className="col-sm-4 col-form-label text-md-right">Password</label>
           <div className="col-md-6">
-            <Field component="input" id="password" type="password" className="form-control" name="password" required />
+            <Field component={RenderField} id="password" type="password" name="password" required />
           </div>
         </div>
         <div className="form-group row">
           <label htmlFor="password_confirmation" className="col-sm-4 col-form-label text-md-right">Confirm password</label>
           <div className="col-md-6">
-            <Field component="input" id="password_confirmation" type="password" className="form-control" name="password_confirmation" required />
+            <Field component={RenderField} id="password_confirmation" type="password" name="password_confirmation" required />
           </div>
         </div>
         <div className="form-group row mb-0">
