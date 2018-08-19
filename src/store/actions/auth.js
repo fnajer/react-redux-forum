@@ -32,3 +32,22 @@ export const logoutUser = () => (dispatch) => {
     type: LOGOUT_USER,
   });
 }
+
+export const registerUser = (values) => async (dispatch) => {
+  try {
+    const responce = await axios.post(`${config.apiUrl}/register`, {
+      name: values.name,
+      email: values.email,
+      password: values.password,
+    });
+
+    dispatch({
+      type: LOGIN_USER,
+      payload: responce.data.data,
+    });
+  } catch (errors) {
+    throw new SubmissionError({
+      _error: 'Something went wrong.',
+    });
+  }
+}

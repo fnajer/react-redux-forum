@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import logoutUser from '../../store/actions/auth';
+import { logoutUser } from '../../store/actions/auth';
 
 const Navbar = ( { user, logoutUser }) => (
   <nav className="navbar navbar-expand-lg navbar-light navbar-forum">

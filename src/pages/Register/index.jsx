@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { registerUser } from '../../store/actions/auth';
+
 import RegisterForm from './RegisterForm';
+
 
 class RegisterContainer extends Component {
   componentWillMount() {
@@ -9,10 +12,16 @@ class RegisterContainer extends Component {
       this.props.history.push('/');
     }
   }
+
+  handleSubmit = async (values) => {
+    await this.props.registerUser(values);
+  }
   
   render() {
     return (
-      <RegisterForm />
+      <RegisterForm 
+        onSubmit={this.handleSubmit}
+      />
     );
   }
 }
@@ -21,4 +30,10 @@ const mapStateToProps = (state) => ({
   user: state.auth.user,
 });
 
-export default connect(mapStateToProps)(RegisterContainer);
+const mapDispatchToProps = (dispatch) => ({
+  registerUser: (values) => {
+    return dispatch(registerUser(values)); // work without return, too
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterContainer);
