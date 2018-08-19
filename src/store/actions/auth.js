@@ -3,6 +3,7 @@ import { SubmissionError } from 'redux-form';
 import config from '../../config';
 
 export const LOGIN_USER = 'LOGIN_USER';
+export const LOGOUT_USER = 'LOGOUT_USER';
 
 export const loginUser = (values) => async (dispatch, getState) => {
   try {
@@ -11,7 +12,7 @@ export const loginUser = (values) => async (dispatch, getState) => {
       password: values.password,
     });
 
-    localStorage.setItem('user', JSON.stringify(responce.data.data));
+    localStorage.setItem('authUser', JSON.stringify(responce.data.data));
 
     dispatch({
       type: LOGIN_USER,
@@ -22,4 +23,12 @@ export const loginUser = (values) => async (dispatch, getState) => {
       _error: 'Invalid credentials.',
     });
   }
+}
+
+export const logoutUser = () => (dispatch) => {
+  localStorage.removeItem('authUser');
+
+  dispatch({
+    type: LOGOUT_USER,
+  });
 }
