@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { SubmissionError } from 'redux-form';
 import config from '../../config';
 
 export const GET_THREADS = 'GET_THREADS';
@@ -47,14 +47,21 @@ export const getThread = (id) => async (dispatch, getState) => {
 };
 
 export const createThread = (data) => async (dispatch, getState) => {
-  const response = await axios.post(`${config.apiUrl}/threads`, data, {
-    headers: {
-      Authorization: `Bearer ${getState().auth.accessToken}`,
-    }
-  });
-console.log(response);
-  dispatch({
-    type: THREAD_CREATED,
-    payload: response.data.data,
-  });
+  try {
+    const response = await axios.post(`${config.apiUrl}/threads`, data, {
+      headers: {
+        Authorization: `Bearer ${getState().auth.accessToken}`,
+      }
+    });
+    console.log(response);
+    dispatch({
+      type: THREAD_CREATED,
+      payload: response.data.data,
+    });
+  } catch (errors) {
+    throw new SubmissionError({
+      ...errors.response.data.data,
+      _error: 'Something went wrong. Please, check for validation errors.',
+    });
+  }
 };
