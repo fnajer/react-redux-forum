@@ -5,7 +5,7 @@ import RenderField from '../../../components/RenderField';
 import RenderTextField from '../../../components/RenderTextField';
 import RenderSelectField from '../../../components/RenderSelectField';
 
-const CreateThreadForm = ({ channels }) => ((
+const CreateThreadForm = ({ channels, handleSubmit, submitting, reset }) => ((
   <div className="modal fade" id="createThread" tabIndex={-1} role="dialog" aria-labelledby="createThreadLabel" aria-hidden="true">
     <div className="modal-dialog" role="document">
       <div className="modal-content">
@@ -16,7 +16,7 @@ const CreateThreadForm = ({ channels }) => ((
           </button>
         </div>
         <div className="modal-body">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="title">Title</label>
               <Field component={RenderField} name="title" autoFocus />
@@ -28,14 +28,14 @@ const CreateThreadForm = ({ channels }) => ((
             <div className="form-group">
               <label htmlFor="channel">Channel</label>
               <Field component={RenderSelectField} name="channel_id">
-                {channels.map(channel => <option value={channel.id}>{channel.name}</option>)}            
+                {channels.map(channel => <option key={channel.id} value={channel.id}>{channel.name}</option>)}            
               </Field>
             </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" onClick={reset} data-dismiss="modal">Close</button>
+              <button type="submit" className="btn btn-info" disabled={submitting}>Save changes</button>
+            </div>
           </form>
-        </div>
-        <div className="modal-footer">
-          <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" className="btn btn-primary">Save changes</button>
         </div>
       </div>
     </div>

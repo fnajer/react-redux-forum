@@ -4,7 +4,7 @@ import distanceInWordsStrict from 'date-fns/distance_in_words_strict';
 import Gravatar from 'react-gravatar';
 
 const Thread = ( { thread }) => {
-  const distanceBetweenDate = distanceInWordsStrict(new Date(), thread.creator.created_at);
+  const distanceBetweenDate = distanceInWordsStrict(new Date(), thread.created_at);
   return (
     <div className="card mb-3">
       <div className="card-header">

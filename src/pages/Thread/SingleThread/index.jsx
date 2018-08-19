@@ -7,7 +7,7 @@ import Reply from '../../../components/Reply';
 import Loader from '../../../components/Loader';
 
 const SingleThread = ({ thread, replies, loadingReplies, handlePageChange, getPageCount }) => {
-  const distanceBetweenDate = distanceInWordsStrict(new Date(), thread.creator.created_at);
+  const distanceBetweenDate = distanceInWordsStrict(new Date(), thread.created_at);
   return (
     <Fragment>
       <div className="card mb-3">
