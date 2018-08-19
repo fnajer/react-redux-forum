@@ -9,7 +9,7 @@ class CreateThread extends React.Component {
       <Fragment>
         {
           this.props.authenticated &&
-          <CreateThreadForm />
+          <CreateThreadForm channels={this.props.channels} />
         }
       </Fragment>
     );
@@ -18,4 +18,5 @@ class CreateThread extends React.Component {
 
 export default connect(state => ({
   authenticated: state.auth.user,
+  channels: state.channels.data,
 }))(CreateThread);

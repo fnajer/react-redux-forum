@@ -1,8 +1,8 @@
 import React from 'react';
 import { reduxForm, Field } from 'redux-form';
 
-import RenderField from './RenderField';
 import validateRegistrationForm from './helpers';
+import RenderField from '../../../components/RenderField';
 import Loader from '../../../components/Loader';
 
 const RegisterForm = ({ handleSubmit, submitting, valid }) => (
