@@ -5,8 +5,9 @@ import Gravatar from 'react-gravatar';
 
 import Reply from '../../../components/Reply';
 import Loader from '../../../components/Loader';
+import EditThreadForm from '../EditThreadForm';
 
-const SingleThread = ({ thread, replies, loadingReplies, handlePageChange, getPageCount }) => {
+const SingleThread = ({ thread, replies, loadingReplies, handlePageChange, getPageCount, user, editing, switchEditing }) => {
   const distanceBetweenDate = distanceInWordsStrict(new Date(), thread.created_at);
   return (
     <Fragment>
@@ -14,12 +15,25 @@ const SingleThread = ({ thread, replies, loadingReplies, handlePageChange, getPa
         <div className="card-header">
           <Gravatar email={thread.creator.email} className="mr-3 rounded-circle" width="30px" height="30px" />
           <span className="text-sm text-muted">{thread.creator.name}, <b>{distanceBetweenDate} ago</b></span>
+          {
+            user && user.id === thread.creator.id &&
+            <button onClick={switchEditing} className={`btn ${editing ? 'btn-danger' : 'btn-info'} btn-xs float-right`}>
+              {editing ? 'Close' : 'Edit'}
+            </button>
+          }
         </div>
         <div className="card-body">
-          <h5 className="text-center">{thread.title}</h5>
-          <p className="text-center">
-            {thread.body}
-          </p>
+          {
+            !editing &&
+            <Fragment>
+              <h5 className="text-center">{thread.title}</h5>
+              <p className="text-center">{thread.body}</p>
+            </Fragment>
+          }
+          {
+            editing &&
+            <EditThreadForm />
+          }
         </div>
         <div className="card-footer text-muted">
           <span>{thread.replies_count} replies</span>

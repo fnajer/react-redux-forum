@@ -8,6 +8,18 @@ import SingleThread from './SingleThread';
 import Loader from '../../components/Loader';
 
 class ThreadContainer extends React.Component {
+  state = {
+    editing: false,
+  }
+
+  switchEditing = () => {
+    this.setState((prevState) => {
+      return {
+        editing: !prevState.editing,
+      };
+    });
+  }
+
   componentWillMount() {
     const { id } = this.props.match.params;
     this.props.getThread(id);
@@ -34,6 +46,9 @@ class ThreadContainer extends React.Component {
             handlePageChange={this.handlePageChange}
             getPageCount={this.getPageCount}
             loadingReplies={this.props.loadingReplies}
+            user={this.props.user}
+            editing={this.state.editing}
+            switchEditing={this.switchEditing}
           />
         }
         {
@@ -53,6 +68,7 @@ const mapStateToProps = (state) => ({
   loading: state.thread.loading,
   replies: state.thread.replies,
   loadingReplies: state.thread.loadingReplies,
+  user: state.auth.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({
