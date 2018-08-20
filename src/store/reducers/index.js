@@ -6,6 +6,7 @@ import channelsReducer from './channels';
 import threadsReducer from './threads';
 import threadReducer from './thread';
 import createThreadReducer from './create-thread';
+import editThreadReducer from './edit-thread';
 
 const reducer = combineReducers({
   auth: authReducer,
@@ -14,6 +15,7 @@ const reducer = combineReducers({
   thread: threadReducer,
   form: formReducer,
   createThread: createThreadReducer,
+  editThread: editThreadReducer,
 });
 
 export default reducer;

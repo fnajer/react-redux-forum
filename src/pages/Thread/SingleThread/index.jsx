@@ -7,7 +7,11 @@ import Reply from '../../../components/Reply';
 import Loader from '../../../components/Loader';
 import EditThreadForm from '../EditThreadForm';
 
-const SingleThread = ({ thread, replies, loadingReplies, handlePageChange, getPageCount, user, editing, switchEditing }) => {
+const SingleThread = ({ 
+  thread, replies, loadingReplies, 
+  handlePageChange, getPageCount, user, 
+  editing, switchEditing, updateThread, 
+}) => {
   const distanceBetweenDate = distanceInWordsStrict(new Date(), thread.created_at);
   return (
     <Fragment>
@@ -32,7 +36,7 @@ const SingleThread = ({ thread, replies, loadingReplies, handlePageChange, getPa
           }
           {
             editing &&
-            <EditThreadForm />
+            <EditThreadForm onSubmit={async (values) => await updateThread(thread.id, values)} initialValues={thread} />
           }
         </div>
         <div className="card-footer text-muted">
@@ -70,29 +74,6 @@ const SingleThread = ({ thread, replies, loadingReplies, handlePageChange, getPa
           height="80px"
         />
       }
-      {/* {
-        replies &&
-        <div className="container">
-          {
-            replies.map(reply => <Reply />)
-          }
-          <ReactPaginate
-            containerClassName="pagination"
-            pageClassName="page-item"
-            pageLinkClassName="page-link"
-            previousClassName="page-item"
-            nextClassName="page-item"
-            previousLinkClassName="page-link"
-            nextLinkClassName="page-link"
-            activeClassName="active"
-            disabledClassName="disabled"
-            breakClassName="page-link"
-            pageCount={Math.ceil(replies.total / replies.per_page)}
-            onPageChange={handlePageChange}
-            forcePage={replies.current_page - 1}
-          />
-        </div>
-      } */}
     </Fragment>
   );
 };

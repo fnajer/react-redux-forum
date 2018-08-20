@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 
-import { getThread } from '../../store/actions/threads';
+import { getThread, updateThread } from '../../store/actions/threads';
 import { getReplies } from '../../store/actions/replies';
 
 import SingleThread from './SingleThread';
@@ -19,6 +19,17 @@ class ThreadContainer extends React.Component {
       };
     });
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.updatedThread) {
+      this.switchEditing();
+    }
+  }
+
+  handleUpdateThread = async (id, values) => {
+    await this.props.updateThread(id, values);
+  }
+
 
   componentWillMount() {
     const { id } = this.props.match.params;
@@ -49,6 +60,7 @@ class ThreadContainer extends React.Component {
             user={this.props.user}
             editing={this.state.editing}
             switchEditing={this.switchEditing}
+            updateThread={this.updateThread}
           />
         }
         {
@@ -69,6 +81,7 @@ const mapStateToProps = (state) => ({
   replies: state.thread.replies,
   loadingReplies: state.thread.loadingReplies,
   user: state.auth.user,
+  updatedThread: state.editThread.thread,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -77,6 +90,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   getReplies: (id, page) => {
     dispatch(getReplies(id, page));
+  },
+  updateThread: (id, data) => {
+    return dispatch(updateThread(id, data));
   }
 });
 

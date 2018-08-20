@@ -7,6 +7,7 @@ export const GET_THREADS_LOADING = 'GET_THREADS_LOADING';
 export const GET_THREADS_LOADED = 'GET_THREADS_LOADED';
 
 export const THREAD_CREATED = 'THREAD_CREATED';
+export const THREAD_UPDATED = 'THREAD_UPDATED';
 
 export const GET_THREAD = 'GET_THREAD';
 export const GET_THREAD_LOADING = 'GET_THREAD_LOADING';
@@ -53,7 +54,7 @@ export const createThread = (data) => async (dispatch, getState) => {
         Authorization: `Bearer ${getState().auth.accessToken}`,
       }
     });
-    console.log(response);
+    
     dispatch({
       type: THREAD_CREATED,
       payload: response.data.data,
@@ -64,4 +65,17 @@ export const createThread = (data) => async (dispatch, getState) => {
       _error: 'Something went wrong. Please, check for validation errors.',
     });
   }
+};
+
+export const updateThread = (id, data) => async (dispatch, getState) => {
+  const response = await axios.patch(`${config.apiUrl}/threads/${id}`, data, {
+    headers: {
+      Authorization: `Bearer ${getState().auth.accessToken}`
+    }
+  });
+
+  dispatch({
+    type: THREAD_UPDATED,
+    payload: response.data.data,
+  });
 };
