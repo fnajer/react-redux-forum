@@ -7,6 +7,7 @@ import threadsReducer from './threads';
 import threadReducer from './thread';
 import createThreadReducer from './create-thread';
 import editThreadReducer from './edit-thread';
+import createReplyReducer from './create-reply';
 
 const reducer = combineReducers({
   auth: authReducer,
@@ -16,6 +17,7 @@ const reducer = combineReducers({
   form: formReducer,
   createThread: createThreadReducer,
   editThread: editThreadReducer,
+  createReply: createReplyReducer,
 });
 
 export default reducer;

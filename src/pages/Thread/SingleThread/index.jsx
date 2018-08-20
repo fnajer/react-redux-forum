@@ -6,6 +6,7 @@ import Gravatar from 'react-gravatar';
 import Reply from '../../../components/Reply';
 import Loader from '../../../components/Loader';
 import EditThreadForm from '../EditThreadForm';
+import CreateReplyButton from '../../../components/CreateReply/CreateReplyButton';
 
 const SingleThread = ({ 
   thread, replies, loadingReplies, 
@@ -50,21 +51,28 @@ const SingleThread = ({
           {
             replies.data.map(reply => <Reply key={reply.id} reply={reply} />)
           }
-          <ReactPaginate
-            containerClassName="pagination"
-            pageClassName="page-item"
-            pageLinkClassName="page-link"
-            previousClassName="page-item"
-            nextClassName="page-item"
-            previousLinkClassName="page-link"
-            nextLinkClassName="page-link"
-            activeClassName="active"
-            disabledClassName="disabled"
-            breakClassName="page-link"
-            pageCount={getPageCount(replies.total, replies.per_page)}
-            onPageChange={handlePageChange}
-            forcePage={replies.current_page - 1}
-          />
+          <div className="row">
+            <div className="col-md-12">
+              <CreateReplyButton />
+            </div>
+          </div>
+          <div className="row justify-content-center">
+            <ReactPaginate
+              containerClassName="pagination"
+              pageClassName="page-item"
+              pageLinkClassName="page-link"
+              previousClassName="page-item"
+              nextClassName="page-item"
+              previousLinkClassName="page-link"
+              nextLinkClassName="page-link"
+              activeClassName="active"
+              disabledClassName="disabled"
+              breakClassName="page-link"
+              pageCount={getPageCount(replies.total, replies.per_page)}
+              onPageChange={handlePageChange}
+              forcePage={replies.current_page - 1}
+            />
+          </div>
         </div>
       }
       {

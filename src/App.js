@@ -5,6 +5,7 @@ import Channels from './components/Channels';
 import AppRouter from './components/AppRouter';
 import CreateThreadButton from './components/CreateThread/CreateThreadButton';
 import CreateThread from './components/CreateThread';
+import CreateReply from './components/CreateReply';
 
 class App extends Component {
   render() {
@@ -13,6 +14,7 @@ class App extends Component {
       <Fragment>
         <Navbar />
         <CreateThread />
+        <CreateReply />
         <div className="my-4">
           <div className="container">
             <div className="row justify-content-center">
