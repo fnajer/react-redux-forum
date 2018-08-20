@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { getThreads } from '../../store/actions/threads';
+import { addQueryParam } from '../../store/actions/router';
 
 import HomeThreads from './HomeThreads';
 import Loader from '../../components/Loader';
@@ -15,8 +16,14 @@ class HomeContainer extends Component {
     return Math.ceil(total / perPage);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.search !== nextProps.search) {
+      this.props.getThreads();
+    }
+  }
+
   handlePageChange = (page) => {
-    this.props.getThreads(page.selected + 1);
+    this.props.addQueryParam('page', page.selected + 1);
   }
 
   render() {
@@ -47,11 +54,15 @@ class HomeContainer extends Component {
 const mapStateToProps = state => ({
   threadsData: state.threads.threadsData,
   loading: state.threads.loading,
+  search: state.router.location.search,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getThreads: (page) => {
     dispatch(getThreads(page));
+  },
+  addQueryParam: (name, page) => {
+    return dispatch(addQueryParam(name, page));
   }
 });
 
