@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { getThreads } from '../../store/actions/threads';
-import { addQueryParam } from '../../store/actions/router';
+import { changeQueryParam } from '../../store/actions/router';
 
 import HomeThreads from './HomeThreads';
 import Loader from '../../components/Loader';
@@ -23,7 +23,7 @@ class HomeContainer extends Component {
   }
 
   handlePageChange = (page) => {
-    this.props.addQueryParam('page', page.selected + 1);
+    this.props.changeQueryParam('page', page.selected + 1);
   }
 
   render() {
@@ -61,8 +61,8 @@ const mapDispatchToProps = (dispatch) => ({
   getThreads: (page) => {
     dispatch(getThreads(page));
   },
-  addQueryParam: (name, page) => {
-    return dispatch(addQueryParam(name, page));
+  changeQueryParam: (name, page) => {
+    return dispatch(changeQueryParam(name, page));
   }
 });
 
