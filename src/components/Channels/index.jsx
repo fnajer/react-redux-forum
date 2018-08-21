@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { parse } from 'query-string';
+import { parse } from '../../lib/query-string';
 
 import getChannels from '../../store/actions/channels';
 import { changeQueryParam } from '../../store/actions/router';

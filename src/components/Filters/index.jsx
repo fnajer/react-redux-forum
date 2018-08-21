@@ -1,5 +1,5 @@
 import React from 'react';
-import { parse } from 'query-string';
+import { parse } from '../../lib/query-string';
 import { connect } from 'react-redux';
 
 import { changeQueryParam, clearQueryParam } from '../../store/actions/router';
