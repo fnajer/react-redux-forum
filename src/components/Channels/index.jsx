@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { parse } from 'query-string';
 
 import getChannels from '../../store/actions/channels';
+import { changeQueryParam } from '../../store/actions/router';
 
 import ChannelsList from './ChannelsList';
 import Loader from '../../components/Loader';
@@ -15,7 +17,11 @@ class ChannelsContainer extends React.Component {
       <div>
         {
           !this.props.loading &&
-          <ChannelsList channels={this.props.channels} />
+          <ChannelsList 
+            channels={this.props.channels} 
+            selectedChannel={this.props.selectedChannel}
+            setQueryChannel={this.props.setQueryChannel}
+          />
         }
         {
           this.props.loading &&
@@ -29,11 +35,15 @@ class ChannelsContainer extends React.Component {
 const mapStateToProps = state => ({
   channels: state.channels.data,
   loading: state.channels.loading,
+  selectedChannel: parse(state.router.location.search).channel,
 });
 
 const mapDispatchToProps = dispatch => ({
   getChannels: () => {
     dispatch(getChannels());
+  },
+  setQueryChannel: (slug) => {
+    return dispatch(changeQueryParam('channel', slug));
   }
 });
 
